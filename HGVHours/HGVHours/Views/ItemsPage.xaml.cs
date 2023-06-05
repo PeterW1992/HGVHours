@@ -20,7 +20,6 @@ namespace HGVHours.Views
         {
             base.OnAppearing();
             _viewModel.OnAppearing();
-            Console.WriteLine($"Items in ViewModel: {_viewModel.Items.Count}");
         }
     }
 }

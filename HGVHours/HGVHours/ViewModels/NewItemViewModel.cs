@@ -67,7 +67,7 @@ namespace HGVHours.ViewModels
 
         public string Description
         {
-            get => $"{description}, Total Hours: {(EndTime - StartTime).TotalHours}";
+            get => description;
             set => SetProperty(ref description, value);
         }
 
