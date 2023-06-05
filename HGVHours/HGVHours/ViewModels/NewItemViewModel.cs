@@ -15,6 +15,7 @@ namespace HGVHours.ViewModels
 
         public NewItemViewModel()
         {
+            StartTime = DateTime.Now - DateTime.Now.Date;
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
@@ -62,7 +63,13 @@ namespace HGVHours.ViewModels
 
         public double HoursElapsed
         {
-            get => (EndTime - StartTime).TotalHours;
+            get {
+                if (StartTime > EndTime)
+                {
+                    return EndTime.Add(new TimeSpan(1, 0, 0, 0) - StartTime).TotalHours;
+                }
+                return (EndTime - StartTime).TotalHours;
+            }
         }
 
         public string Description
