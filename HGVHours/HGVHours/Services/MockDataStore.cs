@@ -12,15 +12,40 @@ namespace HGVHours.Services
 
         public MockDataStore()
         {
+            DateTime dt = DateTime.Now;
+
             items = new List<Item>()
             {
-                new Item { Id = Guid.NewGuid().ToString(), StartDateTime = new DateTime(), EndDateTime = new DateTime(), Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(),StartDateTime = new DateTime(), EndDateTime = new DateTime(), Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), StartDateTime = new DateTime(), EndDateTime = new DateTime(), Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), StartDateTime = new DateTime(), EndDateTime = new DateTime(), Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), StartDateTime = new DateTime(), EndDateTime = new DateTime(), Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), StartDateTime = new DateTime(), EndDateTime = new DateTime(), Description="This is an item description." }
-            };
+                new Item { Id = Guid.NewGuid().ToString(),
+                    StartDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 10, 28, 0),
+                    EndDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 20, 15, 0),
+                    Description="Sandycroft > Swindon"
+                },
+                new Item { Id = Guid.NewGuid().ToString(),
+                    StartDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 09, 5, 0).AddDays(-1),
+                    EndDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 17, 50, 0).AddDays(-1),
+                    Description="Watford Gap services > Derby > Marchington"
+                },
+                new Item { Id = Guid.NewGuid().ToString(),
+                    StartDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 9, 5, 0).AddDays(-2),
+                    EndDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 22, 12, 0).AddDays(-2),
+                    Description="Sandycroft > Sheppy"
+                },
+                new Item { Id = Guid.NewGuid().ToString(),
+                    StartDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 11, 35, 0).AddDays(-3),
+                    EndDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 21, 15, 0).AddDays(-3),
+                    Description="Sandycroft > Darlington"
+                },
+                new Item { Id = Guid.NewGuid().ToString(),
+                    StartDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 05, 5, 0).AddDays(-7),
+                    EndDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 20, 0, 0).AddDays(-7),
+                    Description="Sandycroft > Derby, Derby > Wakefield, Rochdale, Skelmesdale"
+                },
+                new Item { Id = Guid.NewGuid().ToString(),
+                    StartDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 7, 58, 0).AddDays(-8),
+                    EndDateTime = new DateTime(dt.Year, dt.Month, dt.Day, 20, 30, 0).AddDays(-8),
+                    Description="Pilgrims > Runcorn, Bolton, Neston"
+                }};
         }
 
         public async Task<bool> AddItemAsync(Item item)

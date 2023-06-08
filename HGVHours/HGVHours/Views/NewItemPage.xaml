@@ -29,5 +29,4 @@
             <Editor Text="{Binding HoursElapsed, Mode=OneWay}" FontSize="Medium" IsReadOnly="True"/>
         </StackLayout>
     </ContentPage.Content>
-    
 </ContentPage>

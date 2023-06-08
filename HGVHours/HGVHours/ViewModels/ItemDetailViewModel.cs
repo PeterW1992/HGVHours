@@ -47,6 +47,8 @@ namespace HGVHours.ViewModels
                 Id = item.Id;
                 Text = item.StartDateTime.ToString();
                 Description = item.Description;
+
+                Console.WriteLine($"Item Loaded: {item.Id}, {item.Description}");
             }
             catch (Exception)
             {

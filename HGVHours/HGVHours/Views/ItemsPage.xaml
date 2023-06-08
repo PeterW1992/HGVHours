@@ -21,14 +21,47 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Padding="10" x:DataType="model:Item">
-                        <Label Text="{Binding StartDateTime}"
+                        <Label TextColor="Black" Text="{Binding StartDate}"
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-                        <Label Text="{Binding Description}" 
+                            FontSize="20" />
+                        <Grid>
+                            <Label TextColor="Black" Text="Start:"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label TextColor="Black" Text="{Binding StartDateTime.TimeOfDay}"
+                                LineBreakMode="NoWrap" 
+                                HorizontalTextAlignment="End"
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                        </Grid>
+                        <Grid>
+                            <Label TextColor="Black" Text="End:"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label TextColor="Black" Text="{Binding EndDateTime.TimeOfDay}"
+                                LineBreakMode="NoWrap" 
+                                HorizontalTextAlignment="End"
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                        </Grid>
+                        <Grid>
+                            <Label TextColor="Black" Text="Shift Length (hrs):"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label TextColor="Black" Text="{Binding ShiftLength}" 
+                                LineBreakMode="NoWrap"
+                                HorizontalTextAlignment="End"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="16" />
+                        </Grid>
+                        <Label TextColor="Black" Text="{Binding Description}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
+                            FontSize="12" />
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
