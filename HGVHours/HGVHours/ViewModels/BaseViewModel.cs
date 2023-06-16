@@ -10,7 +10,7 @@ namespace HGVHours.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<Shift> DataStore => DependencyService.Get<IDataStore<Shift>>();
 
         bool isBusy = false;
         public bool IsBusy

@@ -13,7 +13,7 @@ namespace HGVHours
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<HttpDataStore>();
             MainPage = new AppShell();
         }
 

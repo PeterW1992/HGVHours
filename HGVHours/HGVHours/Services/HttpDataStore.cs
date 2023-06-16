@@ -1,4 +1,5 @@
 ﻿using HGVHours.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace HGVHours.Services
 {
-    public class HttpDataStore : IDataStore<Item>
+    public class HttpDataStore : IDataStore<Shift>
     {
-        readonly List<Item> items;
+        string endpoint = "https://hgvhours-default-rtdb.europe-west1.firebasedatabase.app/shifts";
         HttpClient httpClient;
 
         public HttpDataStore()
@@ -17,39 +18,49 @@ namespace HGVHours.Services
             httpClient = new HttpClient();
         }
 
-        public async Task<bool> AddItemAsync(Item item)
+        public async Task<bool> AddItemAsync(Shift item)
         {
-            items.Add(item);
+            string json = JsonConvert.SerializeObject(item);   //using Newtonsoft.Json
+
+            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PostAsync(endpoint, httpContent);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Item item)
+        public async Task<bool> UpdateItemAsync(Shift item)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
-
             return await Task.FromResult(true);
         }
 
-        public async Task<Item> GetItemAsync(string id)
+        public async Task<Shift> GetItemAsync(string id)
         {
-            //httpClient.GetAsync("F")
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+            var response = await httpClient.GetAsync($"{endpoint}/{id}.json");
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Shift shift = JsonConvert.DeserializeObject<Shift>(jsonResponse);
+            return shift;
         }
 
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Shift>> GetItemsAsync(bool forceRefresh = false)
         {
-            return await Task.FromResult(items);
+            var response = await httpClient.GetAsync($"{endpoint}.json");
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Dictionary<string, Shift> shiftsDict = JsonConvert.DeserializeObject<Dictionary<string, Shift>>(jsonResponse);
+
+            List<Shift> shifts = shiftsDict.Select(x => {
+               var item = x.Value;
+               item.Id = x.Key;
+               return item;
+           }).ToList();
+
+            return shifts;
         }
     }
 }
