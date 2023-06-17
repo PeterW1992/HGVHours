@@ -8,24 +8,23 @@ using Xamarin.Forms;
 
 namespace HGVHours.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class TagsViewModel : BaseViewModel
     {
-        private Shift _selectedItem;
+        private Tag _selectedItem;
 
-        public ObservableCollection<Shift> Shifts { get; }
-        public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
-        public Command<Shift> ItemTapped { get; }
+        public ObservableCollection<Tag> Tags { get; }
+        public Command LoadTagsCommand { get; }
+        public Command AddTagCommand { get; }
+        public Command<Tag> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public TagsViewModel()
         {
             Title = "Browse";
-            Shifts = new ObservableCollection<Shift>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            Tags = new ObservableCollection<Tag>();
+            LoadTagsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Shift>(OnItemSelected);
-
-            AddItemCommand = new Command(OnAddItem);
+            ItemTapped = new Command<Tag>(OnItemSelected);
+            AddTagCommand = new Command(OnAddItem);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -34,11 +33,11 @@ namespace HGVHours.ViewModels
 
             try
             {
-                Shifts.Clear();
-                var shifts = await ShiftDataStore.GetItemsAsync(true);
-                foreach (var item in shifts)
+                Tags.Clear();
+                var tags = await TagDataStore.GetItemsAsync(true);
+                foreach (var item in tags)
                 {
-                    Shifts.Add(item);
+                    Tags.Add(item);
                 }
             }
             catch (Exception ex)
@@ -57,7 +56,7 @@ namespace HGVHours.ViewModels
             SelectedItem = null;
         }
 
-        public Shift SelectedItem
+        public Tag SelectedItem
         {
             get => _selectedItem;
             set
@@ -72,13 +71,13 @@ namespace HGVHours.ViewModels
             await Shell.Current.GoToAsync(nameof(NewShiftPage));
         }
 
-        async void OnItemSelected(Shift item)
+        async void OnItemSelected(Tag item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ShiftDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            //await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
     }
 }

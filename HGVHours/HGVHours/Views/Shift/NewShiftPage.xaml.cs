@@ -1,21 +1,18 @@
 ﻿using HGVHours.Models;
 using HGVHours.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace HGVHours.Views
 {
-    public partial class NewItemPage : ContentPage
+    public partial class NewShiftPage : ContentPage
     {
-        public Shift Item { get; set; }
+        public Shift Shift { get; set; }
 
-        public NewItemPage()
+        public NewShiftPage()
         {
             InitializeComponent();
             BindingContext = new NewItemViewModel();
         }
+
     }
 }

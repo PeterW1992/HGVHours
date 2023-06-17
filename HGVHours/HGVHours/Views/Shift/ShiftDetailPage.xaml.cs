@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace HGVHours.Views
 {
-    public partial class ItemDetailPage : ContentPage
+    public partial class ShiftDetailPage : ContentPage
     {
-        public ItemDetailPage()
+        public ShiftDetailPage()
         {
             InitializeComponent();
             BindingContext = new ItemDetailViewModel();

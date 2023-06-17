@@ -1,14 +1,16 @@
 ﻿using HGVHours.ViewModels;
 using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace HGVHours.Views
 {
-    public partial class ItemsPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ShiftsPage : ContentPage
     {
         ItemsViewModel _viewModel;
 
-        public ItemsPage()
+        public ShiftsPage()
         {
             InitializeComponent();
 

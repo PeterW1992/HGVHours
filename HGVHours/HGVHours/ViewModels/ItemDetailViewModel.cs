@@ -10,7 +10,6 @@ namespace HGVHours.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
         private string description;
         private DateTime startDateTime;
         private TimeSpan endTime;
@@ -41,7 +40,7 @@ namespace HGVHours.ViewModels
                 Description = description
             };
 
-            await DataStore.UpdateItemAsync(existingShift);
+            await ShiftDataStore.UpdateItemAsync(existingShift);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
@@ -84,7 +83,7 @@ namespace HGVHours.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = await ShiftDataStore.GetItemAsync(itemId);
                 Id = item.Id;
                 Description = item.Description;
                 StartDateTime = item.StartDateTime;

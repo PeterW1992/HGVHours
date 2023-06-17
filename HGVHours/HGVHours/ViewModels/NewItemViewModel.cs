@@ -89,7 +89,6 @@ namespace HGVHours.ViewModels
 
         private async void OnSave()
         {
-            ;
             Convert.ToInt32(StartTime.TotalHours);
             Shift newItem = new Shift()
             {
@@ -98,7 +97,7 @@ namespace HGVHours.ViewModels
                 Description = Description
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await ShiftDataStore.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
