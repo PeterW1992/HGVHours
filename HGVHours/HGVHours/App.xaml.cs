@@ -13,7 +13,9 @@ namespace HGVHours
         {
             InitializeComponent();
 
-            DependencyService.Register<HttpDataStore>();
+            DependencyService.Register<ShiftHttpDataStore>();
+            DependencyService.Register<TagHttpDataStore>();
+
             MainPage = new AppShell();
         }
 

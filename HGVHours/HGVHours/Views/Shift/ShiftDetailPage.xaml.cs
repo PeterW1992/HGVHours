@@ -8,7 +8,7 @@ namespace HGVHours.Views
         public ShiftDetailPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = new ShiftDetailViewModel();
         }
     }
 }

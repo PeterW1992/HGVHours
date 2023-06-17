@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace HGVHours.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ShiftsViewModel : BaseViewModel
     {
         private Shift _selectedItem;
 
@@ -17,7 +17,7 @@ namespace HGVHours.ViewModels
         public Command AddItemCommand { get; }
         public Command<Shift> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public ShiftsViewModel()
         {
             Title = "Browse";
             Shifts = new ObservableCollection<Shift>();
@@ -78,7 +78,7 @@ namespace HGVHours.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ShiftDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(ShiftDetailPage)}?{nameof(ShiftDetailViewModel.ItemId)}={item.Id}");
         }
     }
 }

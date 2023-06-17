@@ -8,13 +8,13 @@ namespace HGVHours.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ShiftsPage : ContentPage
     {
-        ItemsViewModel _viewModel;
+        ShiftsViewModel _viewModel;
 
         public ShiftsPage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new ShiftsViewModel();
         }
 
         protected override void OnAppearing()

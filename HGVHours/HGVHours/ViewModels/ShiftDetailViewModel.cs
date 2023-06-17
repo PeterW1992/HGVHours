@@ -7,7 +7,7 @@ using Xamarin.Forms;
 namespace HGVHours.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    public class ShiftDetailViewModel : BaseViewModel
     {
         private string itemId;
         private string description;
@@ -17,7 +17,7 @@ namespace HGVHours.ViewModels
 
         public Command UpdateCommand { get; }
 
-        public ItemDetailViewModel()
+        public ShiftDetailViewModel()
         {
             UpdateCommand = new Command(OnUpdate, ValidateUpdate);
         }

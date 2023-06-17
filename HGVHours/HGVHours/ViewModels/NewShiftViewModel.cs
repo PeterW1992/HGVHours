@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace HGVHours.ViewModels
 {
-    public class NewItemViewModel : BaseViewModel
+    public class NewShiftViewModel : BaseViewModel
     {
         private DateTime startDate = DateTime.Now;
         private TimeSpan startTime;
@@ -13,7 +13,7 @@ namespace HGVHours.ViewModels
 
         private string description;
 
-        public NewItemViewModel()
+        public NewShiftViewModel()
         {
             StartTime = DateTime.Now - DateTime.Now.Date;
             SaveCommand = new Command(OnSave, ValidateSave);

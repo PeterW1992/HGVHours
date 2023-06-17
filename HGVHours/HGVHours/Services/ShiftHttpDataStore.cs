@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace HGVHours.Services
 {
-    public class HttpDataStore : IDataStore<Shift>
+    public class ShiftHttpDataStore : IDataStore<Shift>
     {
         string endpoint = "https://hgvhours-default-rtdb.europe-west1.firebasedatabase.app/shifts";
         HttpClient httpClient;
 
-        public HttpDataStore()
+        public ShiftHttpDataStore()
         {
             httpClient = new HttpClient();
         }

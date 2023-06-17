@@ -12,6 +12,7 @@ namespace HGVHours.Controls
         {
             InitializeComponent();
             BindingContext = _viewModel = new TagsViewModel();
+            _viewModel.OnAppearing();
         }
     }
 }
