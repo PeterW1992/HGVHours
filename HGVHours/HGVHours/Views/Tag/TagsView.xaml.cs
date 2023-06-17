@@ -1,5 +1,4 @@
 ﻿using HGVHours.ViewModels;
-using System;
 using Xamarin.Forms;
 
 namespace HGVHours.Controls

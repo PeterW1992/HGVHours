@@ -22,11 +22,10 @@
             <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
 
             <Label Text="Tags" FontSize="Medium" />
+            <controls:TagsView></controls:TagsView>
 
             <Label Text="Shift Length: " FontSize="Medium" />
             <Editor Text="{Binding HoursElapsed, Mode=OneWay}" FontSize="Medium" IsReadOnly="True"/>
-
-            <controls:TagsView></controls:TagsView>
             
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
