@@ -93,7 +93,6 @@ namespace HGVHours.ViewModels
             Convert.ToInt32(StartTime.TotalHours);
             Shift newItem = new Shift()
             {
-                Id = Guid.NewGuid().ToString(),
                 StartDateTime = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day, (int)StartTime.TotalHours, (int)StartTime.TotalSeconds % 60, 0),
                 EndDateTime = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, (int)EndTime.TotalHours, (int)EndTime.TotalSeconds % 60, 0),
                 Description = Description

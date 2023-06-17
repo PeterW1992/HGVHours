@@ -12,18 +12,59 @@ namespace HGVHours.ViewModels
         private string itemId;
         private string text;
         private string description;
-        public string Id { get; set; }
+        private DateTime startDateTime;
+        private TimeSpan endTime;
+        private DateTime endDate;
 
-        public string Text
+        public Command UpdateCommand { get; }
+
+        public ItemDetailViewModel()
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            UpdateCommand = new Command(OnUpdate, ValidateUpdate);
         }
+
+        private bool ValidateUpdate()
+        {
+            if (endTime == null)
+                return false;
+
+            return true;
+        }
+
+        private async void OnUpdate()
+        {
+            Shift existingShift = new Shift()
+            {
+                Id = itemId,
+                StartDateTime = startDateTime,
+                EndDateTime = new DateTime(endDate.Year,endDate.Month,endDate.Day, EndTime.Hours, EndTime.Minutes, 0),
+                Description = description
+            };
+
+            await DataStore.UpdateItemAsync(existingShift);
+
+            // This will pop the current page off the navigation stack
+            await Shell.Current.GoToAsync("..");
+        }
+
+        public string Id { get; set; }
 
         public string Description
         {
             get => description;
             set => SetProperty(ref description, value);
+        }
+
+        public DateTime StartDateTime
+        {
+            get => startDateTime;
+            set => SetProperty(ref startDateTime, value);
+        }
+
+        public TimeSpan EndTime
+        {
+            get => endTime;
+            set => SetProperty(ref endTime, value);
         }
 
         public string ItemId
@@ -45,10 +86,10 @@ namespace HGVHours.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.StartDateTime.ToString();
                 Description = item.Description;
-
-                Console.WriteLine($"Item Loaded: {item.Id}, {item.Description}");
+                StartDateTime = item.StartDateTime;
+                EndTime = new TimeSpan(item.EndDateTime.TimeOfDay.Ticks);
+                endDate = item.EndDateTime;
             }
             catch (Exception)
             {

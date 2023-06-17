@@ -24,13 +24,18 @@ namespace HGVHours.Services
 
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PostAsync(endpoint, httpContent);
+            var response = await httpClient.PostAsync($"{endpoint}.json", httpContent);
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateItemAsync(Shift item)
         {
+            string json = JsonConvert.SerializeObject(item);   //using Newtonsoft.Json
+
+            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PutAsync($"{endpoint}/{item.Id}.json", httpContent);
 
             return await Task.FromResult(true);
         }

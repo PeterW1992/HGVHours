@@ -13,7 +13,6 @@ namespace HGVHours.Views
             InitializeComponent();
 
             BindingContext = _viewModel = new ItemsViewModel();
-            Console.WriteLine($"Items in ViewModel: {_viewModel.Items.Count}");
         }
 
         protected override void OnAppearing()

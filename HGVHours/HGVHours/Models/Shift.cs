@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 
 namespace HGVHours.Models
 {
@@ -7,8 +9,12 @@ namespace HGVHours.Models
         public string Id { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public string StartDate { get => StartDateTime.ToString("dd/MM/yyyy"); }
-        public double ShiftLength { get => EndDateTime == null ? 0 : (EndDateTime - StartDateTime).TotalHours; }
         public string Description { get; set; }
+
+        [JsonIgnore]
+        public string StartDate { get => StartDateTime.ToString("dd/MM/yyyy"); }
+
+        [JsonIgnore]
+        public double ShiftLength { get => EndDateTime == null ? 0 : (EndDateTime - StartDateTime).TotalHours; }
     }
 }
