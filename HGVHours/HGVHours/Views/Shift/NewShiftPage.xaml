@@ -24,6 +24,8 @@
             <Label Text="Tags" FontSize="Medium" />
             <controls:TagsView></controls:TagsView>
 
+            <Label Text="{Binding SelectedTagsStr}"></Label>
+
             <Label Text="Shift Length: " FontSize="Medium" />
             <Editor Text="{Binding HoursElapsed, Mode=OneWay}" FontSize="Medium" IsReadOnly="True"/>
             

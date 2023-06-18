@@ -5,6 +5,24 @@
              xmlns:local="clr-namespace:HGVHours.ViewModels"  
              xmlns:model="clr-namespace:HGVHours.Models"  
              x:Name="TagsPage">
+    <ContentView.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Red" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentView.Resources>
+    <StackLayout>
         <!--
           x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
           https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
@@ -12,7 +30,8 @@
         <RefreshView x:DataType="local:TagsViewModel" Command="{Binding LoadTagsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <CollectionView x:Name="TagsListView"
                 ItemsSource="{Binding Tags}"
-                SelectionMode="None">
+                SelectionMode="Multiple"
+                SelectionChanged="OnCollectionViewSelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="10" x:DataType="model:Tag">
@@ -20,16 +39,16 @@
                                     LineBreakMode="NoWrap"
                                     Style="{DynamicResource ListItemDetailTextStyle}"
                                     FontSize="12" />
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:TagsViewModel}}, Path=ItemTapped}"		
-                                        CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+        <Label Text="Current selected item:" />
+        <Label x:Name="currentSelectedItemLabel"
+                           Grid.Row="1"
+                           Grid.Column="1" />
+    </StackLayout>
+    
+    
 </ContentView>

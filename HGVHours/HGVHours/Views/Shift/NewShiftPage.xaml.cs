@@ -8,6 +8,8 @@ namespace HGVHours.Views
     {
         public Shift Shift { get; set; }
 
+        public string SelectedTagsStr = "";
+
         public NewShiftPage()
         {
             InitializeComponent();

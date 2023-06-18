@@ -1,5 +1,7 @@
 ﻿using HGVHours.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace HGVHours.ViewModels
@@ -10,6 +12,19 @@ namespace HGVHours.ViewModels
         private TimeSpan startTime;
         private DateTime endDate;
         private TimeSpan endTime;
+        public IEnumerable<Tag> SelectedTags;
+        public string SelectedTagsStr
+        {
+            get => SelectedTagsToStr();
+        }
+
+        private string SelectedTagsToStr()
+        {
+            if (this.SelectedTags == null) {
+                return "Selected tag count: 0";
+            }
+            return $"Selected tag count: {SelectedTags.ToList().Count}";
+        }
 
         private string description;
 
@@ -63,7 +78,8 @@ namespace HGVHours.ViewModels
 
         public double HoursElapsed
         {
-            get {
+            get
+            {
                 if (StartTime > EndTime)
                 {
                     return EndTime.Add(new TimeSpan(1, 0, 0, 0) - StartTime).TotalHours;
