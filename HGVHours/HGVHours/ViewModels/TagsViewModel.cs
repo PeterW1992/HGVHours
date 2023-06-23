@@ -12,7 +12,9 @@ namespace HGVHours.ViewModels
     public class TagsViewModel : BaseViewModel
     {
         public ObservableCollection<Tag> Tags { get; set; }
-        public ObservableCollection<Object> SelectedTags { get; set; }
+
+        public IEnumerable<Tag> SelectedTags { get; set; }
+
         public Command LoadTagsCommand { get; }
         public Command AddTagCommand { get; }
 
@@ -24,6 +26,7 @@ namespace HGVHours.ViewModels
 
             AddTagCommand = new Command(OnAddItem);
         }
+
 
         async Task ExecuteLoadItemsCommand()
         {
@@ -51,7 +54,7 @@ namespace HGVHours.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
-            SelectedTags = new ObservableCollection<Object>();
+            SelectedTags = new List<Tag>();
         }
 
         private async void OnAddItem(object obj)

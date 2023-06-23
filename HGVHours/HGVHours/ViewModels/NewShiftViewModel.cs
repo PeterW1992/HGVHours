@@ -12,7 +12,18 @@ namespace HGVHours.ViewModels
         private TimeSpan startTime;
         private DateTime endDate;
         private TimeSpan endTime;
-        public IEnumerable<Tag> SelectedTags;
+        private IEnumerable<Tag> selectedTags;
+
+        public IEnumerable<Tag> SelectedTags
+        {
+            get => selectedTags;
+            set
+            {
+                SetProperty(ref selectedTags, value);
+                OnPropertyChanged(nameof(selectedTags));
+            }
+        }
+
         public string SelectedTagsStr
         {
             get => SelectedTagsToStr();
@@ -20,17 +31,20 @@ namespace HGVHours.ViewModels
 
         private string SelectedTagsToStr()
         {
-            if (this.SelectedTags == null) {
-                return "Selected tag count: 0";
+            if (this.SelectedTags == null)
+            {
+                return "Selected tag count NewShiftViewModel: null";
             }
-            return $"Selected tag count: {SelectedTags.ToList().Count}";
+            return $"Selected tag count NewShiftViewModel: {SelectedTags.ToList().Count}";
         }
 
         private string description;
 
         public NewShiftViewModel()
         {
+            SelectedTags = new List<Tag>();
             StartTime = DateTime.Now - DateTime.Now.Date;
+            UpdateDataCommand = new Command(DisplayData);
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
@@ -95,12 +109,19 @@ namespace HGVHours.ViewModels
         }
 
         public Command SaveCommand { get; }
+        public Command UpdateDataCommand { get; }
         public Command CancelCommand { get; }
 
         private async void OnCancel()
         {
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
+        }
+
+        private async void DisplayData()
+        {
+            Console.WriteLine($"Comeon bruh: {SelectedTags.ToList().Count}");
+            SelectedTags = SelectedTags;
         }
 
         private async void OnSave()

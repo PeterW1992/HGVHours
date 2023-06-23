@@ -12,21 +12,21 @@ namespace HGVHours.Controls
     {
         TagsViewModel _viewModel;
 
-        IEnumerable<Object> selectedTags;
+        public static readonly BindableProperty SelectedTagsProperty = BindableProperty.Create(
+            "SelectedTags",
+            typeof(List<Tag>),
+            typeof(List<Tag>),
+            new List<Tag>(),
+            BindingMode.TwoWay,
+            propertyChanged: (bindable, oldValue, newValue) => {
+                Console.WriteLine($"Property change count: {((List<Tag>)newValue).Count}");
+            }
+        );
 
-        public IEnumerable<Object> SelectedTags
+        public List<Tag> SelectedTags
         {
-            get
-            {
-                return selectedTags;
-            }
-            set
-            {
-                if (selectedTags != value)
-                {
-                    selectedTags = value;
-                }
-            }
+            get { return (List<Tag>)GetValue(SelectedTagsProperty); }
+            set { SetValue(SelectedTagsProperty, value); }
         }
 
         void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -36,19 +36,16 @@ namespace HGVHours.Controls
 
         void UpdateSelectionData(IEnumerable<object> previousSelectedItems, IEnumerable<object> currentSelectedItems)
         {
-            SelectedTags = currentSelectedItems;
-            var selectedTags = ToList(SelectedTags);
-            currentSelectedItemLabel.Text = string.IsNullOrWhiteSpace(selectedTags) ? "[none]" : selectedTags;
-        }
+            List<Tag> local = new List<Tag>();
 
-        static string ToList(IEnumerable<object> items)
-        {
-            if (items == null)
+            SelectedTags.Clear();
+
+            foreach (var obj in currentSelectedItems)
             {
-                return string.Empty;
+                local.Add((Tag)obj);
             }
-
-            return items.Aggregate(string.Empty, (sender, obj) => sender + (sender.Length == 0 ? "" : ", ") + ((Tag)obj).Name);
+            SelectedTags = local;
+            Console.WriteLine($"UpdateSelectedDataBeingCalled {SelectedTags.Count}");
         }
 
         public TagsView()

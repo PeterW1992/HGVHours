@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
 
 namespace HGVHours.Models
 {
@@ -16,5 +17,8 @@ namespace HGVHours.Models
 
         [JsonIgnore]
         public double ShiftLength { get => EndDateTime == null ? 0 : (EndDateTime - StartDateTime).TotalHours; }
+
+        public List<Tag> Tags { get; set; }
+
     }
 }

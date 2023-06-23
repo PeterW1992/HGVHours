@@ -5,7 +5,7 @@
              Shell.PresentationMode="ModalAnimated"
              Title="New Item"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:controls="clr-namespace:HGVHours.Controls" 
+             xmlns:controls="clr-namespace:HGVHours.Controls" xmlns:viewmodels="clr-namespace:HGVHours.ViewModels" x:DataType="viewmodels:NewShiftViewModel"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
@@ -22,9 +22,10 @@
             <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
 
             <Label Text="Tags" FontSize="Medium" />
-            <controls:TagsView></controls:TagsView>
+            <controls:TagsView SelectedTags="{Binding SelectedTags, Mode=TwoWay}"></controls:TagsView>
 
             <Label Text="{Binding SelectedTagsStr}"></Label>
+            <Label x:Name="DisplayDataLabel"></Label>
 
             <Label Text="Shift Length: " FontSize="Medium" />
             <Editor Text="{Binding HoursElapsed, Mode=OneWay}" FontSize="Medium" IsReadOnly="True"/>
@@ -32,6 +33,7 @@
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Update the view lad" Command="{Binding UpdateDataCommand}" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
