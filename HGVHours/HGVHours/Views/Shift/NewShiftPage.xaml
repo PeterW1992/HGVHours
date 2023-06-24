@@ -5,7 +5,9 @@
              Shell.PresentationMode="ModalAnimated"
              Title="New Item"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:controls="clr-namespace:HGVHours.Controls" xmlns:viewmodels="clr-namespace:HGVHours.ViewModels" x:DataType="viewmodels:NewShiftViewModel"
+             xmlns:controls="clr-namespace:HGVHours.Controls" 
+             xmlns:viewmodels="clr-namespace:HGVHours.ViewModels" 
+             x:DataType="viewmodels:NewShiftViewModel"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">

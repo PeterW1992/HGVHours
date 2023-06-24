@@ -16,7 +16,7 @@ namespace HGVHours.Models
         public string StartDate { get => StartDateTime.ToString("dd/MM/yyyy"); }
 
         [JsonIgnore]
-        public double ShiftLength { get => EndDateTime == null ? 0 : (EndDateTime - StartDateTime).TotalHours; }
+        public double ShiftLength { get => EndDateTime == null ? 0 : Math.Round((EndDateTime - StartDateTime).TotalHours, 2); }
 
         public List<Tag> Tags { get; set; }
 

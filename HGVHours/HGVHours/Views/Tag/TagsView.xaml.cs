@@ -12,6 +12,7 @@ namespace HGVHours.Controls
     {
         TagsViewModel _viewModel;
 
+
         public static readonly BindableProperty SelectedTagsProperty = BindableProperty.Create(
             "SelectedTags",
             typeof(List<Tag>),
@@ -45,7 +46,6 @@ namespace HGVHours.Controls
                 local.Add((Tag)obj);
             }
             SelectedTags = local;
-            Console.WriteLine($"UpdateSelectedDataBeingCalled {SelectedTags.Count}");
         }
 
         public TagsView()
