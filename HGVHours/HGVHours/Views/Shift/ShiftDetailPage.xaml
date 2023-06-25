@@ -16,5 +16,6 @@
         <Entry TextColor="Black" Text="{Binding Description}" FontSize="Small"/>
 
         <Button Text="Save Changes" Command="{Binding UpdateCommand}"></Button>
+        <Button Text="Delete Shift" BackgroundColor="Red" Command="{Binding DeleteCommand}"></Button>
     </StackLayout>
 </ContentPage>

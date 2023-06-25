@@ -42,7 +42,10 @@ namespace HGVHours.Services
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            return await Task.FromResult(true);
+            var response = await httpClient.DeleteAsync($"{endpoint}/{id}.json");
+            var statusCode = response.StatusCode;
+
+            return await Task.FromResult(statusCode == System.Net.HttpStatusCode.OK);
         }
 
         public async Task<Shift> GetItemAsync(string id)
@@ -65,7 +68,7 @@ namespace HGVHours.Services
                return item;
            }).ToList();
 
-            return shifts;
+            return shifts.OrderByDescending(x => x.StartDate);
         }
     }
 }

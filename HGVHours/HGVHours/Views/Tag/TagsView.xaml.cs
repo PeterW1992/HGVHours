@@ -12,21 +12,30 @@ namespace HGVHours.Controls
     {
         TagsViewModel _viewModel;
 
-
         public static readonly BindableProperty SelectedTagsProperty = BindableProperty.Create(
-            "SelectedTags",
-            typeof(List<Tag>),
-            typeof(List<Tag>),
-            new List<Tag>(),
-            BindingMode.TwoWay,
-            propertyChanged: (bindable, oldValue, newValue) => {
-                Console.WriteLine($"Property change count: {((List<Tag>)newValue).Count}");
+            nameof(SelectedTags),
+            typeof(ObservableCollection<Tag>),
+            typeof(TagsView),
+            propertyChanged: (bindable, oldValue, newValue) =>
+            {
+                if (bindable is TagsView _this)
+                {
+                    _this.SelectedTags = (ObservableCollection<Tag>) newValue;
+                }
+                Console.WriteLine($"Property change count: {((ObservableCollection<Tag>)newValue).Count}");
             }
         );
 
-        public List<Tag> SelectedTags
+        public TagsView()
         {
-            get { return (List<Tag>)GetValue(SelectedTagsProperty); }
+            InitializeComponent();
+            BindingContext = _viewModel = new TagsViewModel();
+            _viewModel.OnAppearing();
+        }
+
+        public ObservableCollection<Tag> SelectedTags
+        {
+            get { return (ObservableCollection<Tag>)GetValue(SelectedTagsProperty); }
             set { SetValue(SelectedTagsProperty, value); }
         }
 
@@ -37,22 +46,13 @@ namespace HGVHours.Controls
 
         void UpdateSelectionData(IEnumerable<object> previousSelectedItems, IEnumerable<object> currentSelectedItems)
         {
-            List<Tag> local = new List<Tag>();
-
-            SelectedTags.Clear();
+            ObservableCollection<Tag> local = new ObservableCollection<Tag>();
 
             foreach (var obj in currentSelectedItems)
             {
                 local.Add((Tag)obj);
             }
             SelectedTags = local;
-        }
-
-        public TagsView()
-        {
-            InitializeComponent();
-            BindingContext = _viewModel = new TagsViewModel();
-            _viewModel.OnAppearing();
         }
     }
 }

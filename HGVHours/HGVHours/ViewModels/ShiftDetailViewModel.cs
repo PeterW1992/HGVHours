@@ -1,7 +1,6 @@
 ﻿using HGVHours.Models;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace HGVHours.ViewModels
@@ -17,9 +16,13 @@ namespace HGVHours.ViewModels
 
         public Command UpdateCommand { get; }
 
+        public Command DeleteCommand { get; }
+
+
         public ShiftDetailViewModel()
         {
             UpdateCommand = new Command(OnUpdate, ValidateUpdate);
+            DeleteCommand = new Command(OnDelete, ConfirmDelete);
         }
 
         private bool ValidateUpdate()
@@ -28,6 +31,23 @@ namespace HGVHours.ViewModels
                 return false;
 
             return true;
+        }
+
+        private bool ConfirmDelete()
+        {
+            //Console.WriteLine($"Item id: {itemId}");
+            //if (itemId == null)
+            //    return false;
+
+            return true;
+        }
+
+        private async void OnDelete()
+        {
+            await ShiftDataStore.DeleteItemAsync(itemId);
+
+            // This will pop the current page off the navigation stack
+            await Shell.Current.GoToAsync("..");
         }
 
         private async void OnUpdate()

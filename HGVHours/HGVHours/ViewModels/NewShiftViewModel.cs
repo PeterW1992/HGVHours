@@ -1,6 +1,6 @@
 ﻿using HGVHours.Models;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -12,9 +12,20 @@ namespace HGVHours.ViewModels
         private TimeSpan startTime;
         private DateTime endDate;
         private TimeSpan endTime;
-        private IEnumerable<Tag> selectedTags;
+        private ObservableCollection<Tag> selectedTags;
 
-        public IEnumerable<Tag> SelectedTags
+        public NewShiftViewModel()
+        {
+            SelectedTags = new ObservableCollection<Tag>();
+            StartTime = DateTime.Now - DateTime.Now.Date;
+            UpdateDataCommand = new Command(DisplayData);
+            SaveCommand = new Command(OnSave, ValidateSave);
+            CancelCommand = new Command(OnCancel);
+            this.PropertyChanged +=
+                (_, __) => SaveCommand.ChangeCanExecute();
+        }
+
+        public ObservableCollection<Tag> SelectedTags
         {
             get => selectedTags;
             set
@@ -39,17 +50,6 @@ namespace HGVHours.ViewModels
         }
 
         private string description;
-
-        public NewShiftViewModel()
-        {
-            SelectedTags = new List<Tag>();
-            StartTime = DateTime.Now - DateTime.Now.Date;
-            UpdateDataCommand = new Command(DisplayData);
-            SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
-            this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
-        }
 
         private bool ValidateSave()
         {
@@ -118,10 +118,10 @@ namespace HGVHours.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        private async void DisplayData()
+        private void DisplayData()
         {
-            Console.WriteLine($"Comeon bruh: {SelectedTags.ToList().Count}");
-            SelectedTags = SelectedTags;
+            SelectedTags = selectedTags;
+            Console.WriteLine($"Come on bruh: {SelectedTags.ToList().Count}");
         }
 
         private async void OnSave()

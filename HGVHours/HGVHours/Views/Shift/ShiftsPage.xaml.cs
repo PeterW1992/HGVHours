@@ -13,7 +13,6 @@ namespace HGVHours.Views
         public ShiftsPage()
         {
             InitializeComponent();
-
             BindingContext = _viewModel = new ShiftsViewModel();
         }
 
