@@ -13,6 +13,8 @@ namespace HGVHours.ViewModels
     {
         public ObservableCollection<Tag> Tags { get; set; }
 
+        public string Text { get; set; }
+
         public ObservableCollection<Tag> SelectedTags { get; set; }
 
         public Command LoadTagsCommand { get; }

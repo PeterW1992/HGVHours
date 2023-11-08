@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:HGVHours.Controls" 
+             xmlns:viewmodels="clr-namespace:HGVHours.ViewModels" 
+             x:DataType="viewmodels:ShiftDetailViewModel"
              x:Class="HGVHours.Views.ShiftDetailPage"
              Title="{Binding Title}">
 
@@ -14,6 +17,8 @@
         <TimePicker TextColor="Black" Time="{Binding EndTime}"></TimePicker>
         <Label TextColor="Black" Text="Description:" FontSize="Medium" />
         <Entry TextColor="Black" Text="{Binding Description}" FontSize="Small"/>
+
+        <controls:TagsView SelectedTags="{Binding Tags, Mode=TwoWay}" Text="{Binding Description}"></controls:TagsView>
 
         <Button Text="Save Changes" Command="{Binding UpdateCommand}"></Button>
         <Button Text="Delete Shift" BackgroundColor="Red" Command="{Binding DeleteCommand}"></Button>

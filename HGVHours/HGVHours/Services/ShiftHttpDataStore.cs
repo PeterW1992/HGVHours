@@ -20,7 +20,7 @@ namespace HGVHours.Services
 
         public async Task<bool> AddItemAsync(Shift item)
         {
-            string json = JsonConvert.SerializeObject(item);   //using Newtonsoft.Json
+            string json = JsonConvert.SerializeObject(item);
 
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
@@ -31,7 +31,7 @@ namespace HGVHours.Services
 
         public async Task<bool> UpdateItemAsync(Shift item)
         {
-            string json = JsonConvert.SerializeObject(item);   //using Newtonsoft.Json
+            string json = JsonConvert.SerializeObject(item);
 
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 

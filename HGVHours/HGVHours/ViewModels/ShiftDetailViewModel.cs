@@ -1,5 +1,6 @@
 ﻿using HGVHours.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -13,6 +14,13 @@ namespace HGVHours.ViewModels
         private DateTime startDateTime;
         private TimeSpan endTime;
         private DateTime endDate;
+
+        private ObservableCollection<Tag> tags = new ObservableCollection<Tag>();
+
+        public ObservableCollection<Tag> Tags {
+            get => tags;
+            set => SetProperty(ref tags, value);
+        }
 
         public Command UpdateCommand { get; }
 

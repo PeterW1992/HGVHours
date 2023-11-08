@@ -26,6 +26,20 @@ namespace HGVHours.Controls
             }
         );
 
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(
+            nameof(Text),
+            typeof(string),
+            typeof(TagsView),
+            propertyChanged: (bindable, oldValue, newValue) =>
+            {
+                if (bindable is TagsView _this)
+                {
+                    _this.Text = (string)newValue;
+                }
+                Console.WriteLine($"Property colour change count: {((Color)newValue).R}");
+            }
+        );
+
         public TagsView()
         {
             InitializeComponent();
@@ -37,6 +51,12 @@ namespace HGVHours.Controls
         {
             get { return (ObservableCollection<Tag>)GetValue(SelectedTagsProperty); }
             set { SetValue(SelectedTagsProperty, value); }
+        }
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
 
         void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)

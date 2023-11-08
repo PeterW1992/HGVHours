@@ -24,7 +24,8 @@
             <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
 
             <Label Text="Tags" FontSize="Medium" />
-            <controls:TagsView SelectedTags="{Binding SelectedTags, Mode=TwoWay}"></controls:TagsView>
+            <!--<controls:TagsView SelectedTags="{Binding SelectedTags, Mode=TwoWay}" Text="{Binding Description, Source=}"></controls:TagsView>-->
+            <Label Text="{Binding Description, Mode=TwoWay}" FontSize="Medium" Margin="0"></Label>
 
             <Label Text="{Binding SelectedTagsStr}"></Label>
             <Label x:Name="DisplayDataLabel"></Label>

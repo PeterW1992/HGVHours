@@ -44,5 +44,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+        <Entry Text="{Binding Text}"></Entry>
     </StackLayout>
 </ContentView>
