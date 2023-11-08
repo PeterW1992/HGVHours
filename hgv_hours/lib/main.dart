@@ -1,5 +1,9 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:hgv_hours/controllers/shifts_controller.dart';
+import 'package:hgv_hours/screens/favourites.dart';
+import 'package:hgv_hours/screens/generator.dart';
+import 'package:hgv_hours/screens/shifts/shifts.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -27,13 +31,12 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
-
+  var shiftsController = ShiftsController();
   void getNext() {
     current = WordPair.random();
     notifyListeners();
   }
 
-  // ↓ Add the code below.
   var favorites = <WordPair>[];
 
   void toggleFavorite() {
@@ -64,6 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = FavouritesPage();
         break;
+      case 2:
+        page = ShiftsPage();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -84,6 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.favorite),
                     label: Text('Favorites'),
                   ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.work_history),
+                    label: Text('Shifts'),
+                  ),
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {
@@ -103,80 +113,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     });
-  }
-}
-
-class GeneratorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FavouritesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    var favourites = appState.favorites;
-
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text('No favorites yet.'),
-      );
-    }
-
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
-        ),
-        for (var favourite in favourites)
-          ListTile(
-            title: Text(favourite.asLowerCase),
-            leading: Icon(Icons.favorite),
-          )
-      ],
-    );
   }
 }
 
