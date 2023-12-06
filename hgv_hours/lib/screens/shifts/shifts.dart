@@ -9,6 +9,7 @@ class ShiftsPage extends StatelessWidget {
     var appState = context.watch<MyAppState>();
 
     var shiftsController = appState.shiftsController;
+    shiftsController.listShifts();
 
     if (shiftsController.shifts.isEmpty) {
       return ListView(
@@ -16,7 +17,10 @@ class ShiftsPage extends StatelessWidget {
           Text('No shifts yet.'),
           ElevatedButton.icon(
             onPressed: () {
-              _dialogBuilder(context);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => NewShift(),
+              ));
+              // _dialogBuilder(context);
             },
             label: Text('Add Shift'),
             icon: Icon(Icons.add),
@@ -27,11 +31,6 @@ class ShiftsPage extends StatelessWidget {
 
     return ListView(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${shiftsController.shifts.length} shifts:'),
-        ),
         for (var shift in shiftsController.shifts)
           ListTile(
             title: Text(shift.startDateTime!.toIso8601String()),
@@ -45,32 +44,7 @@ class ShiftsPage extends StatelessWidget {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return SimpleDialog(
-          children: [
-            DatePickerDialog(
-                initialDate: initialDate,
-                firstDate: firstDate,
-                lastDate: lastDate),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Save'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
+        return NewShift();
       },
     );
   }

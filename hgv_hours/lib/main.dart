@@ -1,8 +1,10 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:hgv_hours/controllers/shifts_controller.dart';
+import 'package:hgv_hours/repositories/shifts_repository.dart';
 import 'package:hgv_hours/screens/favourites.dart';
 import 'package:hgv_hours/screens/generator.dart';
+import 'package:hgv_hours/screens/shifts/new_shift.dart';
 import 'package:hgv_hours/screens/shifts/shifts.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'HGV Hours App',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
@@ -31,8 +33,10 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
-  var shiftsController = ShiftsController();
+  var shiftsController = ShiftsController(ShiftsRepository());
+
   void getNext() {
+    shiftsController.listShifts();
     current = WordPair.random();
     notifyListeners();
   }
@@ -70,6 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         page = ShiftsPage();
         break;
+      case 3:
+        page = NewShift();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -93,6 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   NavigationRailDestination(
                     icon: Icon(Icons.work_history),
                     label: Text('Shifts'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.add),
+                    label: Text('Add Shift'),
                   ),
                 ],
                 selectedIndex: selectedIndex,

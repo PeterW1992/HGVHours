@@ -1,5 +1,5 @@
 class Shift {
-  int? id;
+  String? id;
   DateTime? startDateTime;
   DateTime? endDateTime;
   String? description;
